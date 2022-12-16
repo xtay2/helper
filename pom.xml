@@ -1,0 +1,31 @@
+<project>
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>io.github.xtay2</groupId>
+	<artifactId>helper</artifactId>
+	<version>1.0</version>
+	<packaging>jar</packaging>
+	<name>Helper</name>
+	<description>A utility-repository filled with helper-classes, a JSON-library and graph-datastructures.</description>
+	<url>http://maven.apache.org</url>
+	<inceptionYear>2022</inceptionYear>
+
+	<licenses>
+		<license>
+			<name>Apache License, Version 2.0</name>
+			<url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+			<distribution>repo</distribution>
+		</license>
+	</licenses>
+
+	<developers>
+		<developer>
+			<id>xtay2</id>
+			<name>Dennis Woithe</name>
+		</developer>
+	</developers>
+
+	<scm>
+		<url>https://github.com/xtay2/helper</url>
+	</scm>
+
+</project>
