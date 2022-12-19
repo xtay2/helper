@@ -18,6 +18,18 @@ public class MathHelper {
 		return min;
 	}
 
+	/** Finds the smallest int in an array. */
+	public static int minInt(int... numbers) {
+		if (numbers.length == 0)
+			return 0;
+		int min = numbers[0];
+		for (int e : numbers) {
+			if (e < min)
+				min = e;
+		}
+		return min;
+	}
+
 	/** Finds the greatest number in an array. */
 	@SafeVarargs
 	public static <T extends Number & Comparable<T>> T max(T... numbers) {
@@ -29,6 +41,18 @@ public class MathHelper {
 				min = e;
 		}
 		return min;
+	}
+
+	/** Finds the greatest int in an array. */
+	public static int maxInt(int... numbers) {
+		if (numbers.length == 0)
+			return 0;
+		int max = numbers[0];
+		for (int e : numbers) {
+			if (e > max)
+				max = e;
+		}
+		return max;
 	}
 }
 

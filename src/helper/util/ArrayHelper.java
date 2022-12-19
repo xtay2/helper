@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.Set;
 import java.util.function.Function;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 @SuppressWarnings("unused")
@@ -39,6 +40,13 @@ public class ArrayHelper {
 		T[] res = Arrays.copyOf(array, end - start);
 		System.arraycopy(array, start, res, 0, res.length);
 		return res;
+	}
+
+	/**
+	 * Parses every element in the array to an Integer and returns a {@link Stream} of it.
+	 */
+	public static IntStream parseIntStream(String[] arr) {
+		return Arrays.stream(arr).filter(str -> !str.isBlank()).mapToInt(Integer::parseInt);
 	}
 
 }

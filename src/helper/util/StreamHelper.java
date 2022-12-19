@@ -2,6 +2,7 @@ package helper.util;
 
 import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.function.BiFunction;
 import java.util.function.IntFunction;
 import java.util.function.Predicate;
 import java.util.stream.Collector;
@@ -32,6 +33,15 @@ public class StreamHelper {
 					return d2;
 				})
 		).stream();
+	}
+
+	/**
+	 * Reverses the given {@link IntStream}.
+	 * <p>
+	 * This assumes that the given {@link IntStream} is sequential.
+	 */
+	public static <T> IntStream reverse(IntStream stream) {
+		return reverse(stream.boxed()).mapToInt(Integer::intValue);
 	}
 
 	/**
@@ -73,6 +83,11 @@ public class StreamHelper {
 					return res.stream();
 				})
 		);
+	}
+
+	public static <T, R> Stream<R> mapIndexed(Stream<T> stream, BiFunction<T, Integer, R> mapper) {
+		var lst = stream.toList();
+		return IntStream.range(0, lst.size()).mapToObj(i -> mapper.apply(lst.get(i), i));
 	}
 
 	/**
