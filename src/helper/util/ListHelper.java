@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Function;
 import java.util.function.Supplier;
+import java.util.stream.Collectors;
 
 @SuppressWarnings("unused")
 public class ListHelper {
@@ -31,5 +32,12 @@ public class ListHelper {
 			for (int i = 0; i < length; i++)
 				add(value.get());
 		}};
+	}
+
+	/**
+	 * Casts all elements in a List to a given type and returns the mapped result.
+	 */
+	public static <T> List<T> cast(List<?> list, Class<T> type) {
+		return list.stream().map(type::cast).collect(Collectors.toList());
 	}
 }

@@ -1,8 +1,10 @@
 package helper.io;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.Comparator;
 
 @SuppressWarnings("unused")
 public class FileHelper {
@@ -21,4 +23,21 @@ public class FileHelper {
 		}
 	}
 
+	/**
+	 * Deletes a {@link File} or a {@link Directory} and all its contents.
+	 *
+	 * @return true if successful.
+	 */
+	@SuppressWarnings("ResultOfMethodCallIgnored")
+	public static boolean delete(Path path) {
+		try (var dirStream = Files.walk(path)) {
+			dirStream.map(Path::toFile)
+					.sorted(Comparator.reverseOrder())
+					.forEach(File::delete);
+			return true;
+		} catch (IOException ioe) {
+			ioe.printStackTrace();
+			return false;
+		}
+	}
 }

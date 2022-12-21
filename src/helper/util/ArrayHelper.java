@@ -49,4 +49,61 @@ public class ArrayHelper {
 		return Arrays.stream(arr).filter(str -> !str.isBlank()).mapToInt(Integer::parseInt);
 	}
 
+	/**
+	 * Swaps two values in an array.
+	 */
+	public static <T> void swap(T[] arr, int i, int j) {
+		outOfBounds(arr, true, i, j);
+		T tmp = arr[i];
+		arr[i] = arr[j];
+		arr[j] = tmp;
+	}
+
+	public static <T> void move(T[] arr, int idx, int amount) {
+		if (amount == 0)
+			return;
+		outOfBounds(arr, true, idx);
+		T tmp = arr[idx];
+
+
+		while (idx + amount > arr.length - 1) {
+			amount = (idx + amount) - arr.length;
+			System.out.println(" -> " + amount);
+		}
+
+		while (idx + amount < 0) {
+			amount = arr.length + amount;
+			System.out.println(" -> " + amount);
+		}
+
+		if (amount > 0) {
+			System.arraycopy(arr, idx + 1, arr, idx, amount);
+			arr[idx + amount] = tmp;
+		} else {
+			System.arraycopy(arr, idx, arr, idx + 1, -amount);
+			arr[idx] = tmp;
+		}
+
+		arr[idx + amount] = tmp;
+
+	}
+
+	public static void main(String[] args) {
+		Integer[] arr = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+		System.out.println(Arrays.toString(arr));
+		move(arr, 0, 3);
+		System.out.println(Arrays.toString(arr));
+		move(arr, 9, -3);
+		System.out.println(Arrays.toString(arr));
+	}
+
+	public static <T> boolean outOfBounds(T[] arr, boolean throwExc, int... idxs) {
+		for (var idx : idxs)
+			if (idx < 0 || idx >= arr.length) {
+				if (throwExc)
+					throw new IndexOutOfBoundsException("Index " + idx + " out of bounds for array of length " + arr.length);
+				return true;
+			}
+		return false;
+	}
 }
