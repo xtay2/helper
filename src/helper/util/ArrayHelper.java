@@ -3,6 +3,7 @@ package helper.util;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Set;
+import java.util.function.BiFunction;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -105,5 +106,13 @@ public class ArrayHelper {
 				return true;
 			}
 		return false;
+	}
+
+	public static <S, R extends S, T extends S> R fold(T[] arr, BiFunction<T, S, R> combiner) {
+		if (arr.length < 2)
+			return null;
+		if (arr.length == 2)
+			return combiner.apply(arr[0], arr[1]);
+		return combiner.apply(arr[0], fold(ArrayHelper.subarray(arr, 1, arr.length), combiner));
 	}
 }

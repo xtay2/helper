@@ -30,6 +30,8 @@ public class FileHelper {
 	 */
 	@SuppressWarnings("ResultOfMethodCallIgnored")
 	public static boolean delete(Path path) {
+		if (Files.notExists(path))
+			return false;
 		try (var dirStream = Files.walk(path)) {
 			dirStream.map(Path::toFile)
 					.sorted(Comparator.reverseOrder())

@@ -1,6 +1,8 @@
-package helper.json.type.container;
+package helper.type.container;
 
-import helper.json.type.JsonElementTest;
+import helper.json.type.container.JsonList;
+import helper.json.type.container.JsonObject;
+import helper.type.JsonElementTest;
 import org.junit.jupiter.api.Test;
 
 public class JsonObjectTest implements JsonElementTest {

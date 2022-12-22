@@ -1,6 +1,6 @@
-package helper.json.type;
+package helper.type;
 
-import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.Test;
 
 public interface JsonElementTest {
 
@@ -9,7 +9,7 @@ public interface JsonElementTest {
 
 	@Test
 	void toPrettyStringTest();
-	
+
 	@Test
 	void toSpreadStringTest();
 

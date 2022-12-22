@@ -1,7 +1,15 @@
-package helper.json.type.container;
+package helper.type.container;
 
 import helper.json.type.JsonElement;
-import helper.json.type.JsonElementTest;
+import helper.json.type.container.JsonList;
+import helper.json.type.container.JsonObject;
+import helper.json.type.primitive.JsonNr;
+import helper.json.type.primitive.JsonText;
+import helper.type.JsonElementTest;
+import org.junit.jupiter.api.Test;
+
+import static helper.json.parsing.JsonPrinter.JsonPrintMode.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class JsonListTest implements JsonElementTest {
 
@@ -34,18 +42,18 @@ public class JsonListTest implements JsonElementTest {
 	@Override
 	@Test
 	public void toSingleStringTest() {
-		assertEquals("[]", new JsonList().toJsonString(JsonPrintMode.SINGLE_LINE));
+		assertEquals("[]", new JsonList().toJsonString(SINGLE_LINE));
 		assertEquals("{\"list1\": [], \"list3\": [1, [1, 2, 3], 3], \"list2\": [1, 2, 3], \"obj2\": {\"field\": \"String\"}, \"obj1\": {},"
 				+ " \"obj4\": {\"field1\": \"Some text\", \"field3\": {\"field3\": 10}, \"field2\": [1, 2, 3],"
 				+ " \"field4\": {\"field1\": \"Some text\", \"field2\": \"Some other text\"}},"
 				+ " \"obj3\": {\"field1\": \"Some text\", \"field2\": \"Some other text\"}}\r\n"
-				+ "", mock.toJsonString(JsonPrintMode.SINGLE_LINE));
+				+ "", mock.toJsonString(SINGLE_LINE));
 	}
 
 	@Override
 	@Test
 	public void toPrettyStringTest() {
-		assertEquals("[]", new JsonList().toJsonString(JsonPrintMode.PRETTY));
+		assertEquals("[]", new JsonList().toJsonString(PRETTY));
 		assertEquals("""
 				{
 						{
@@ -72,13 +80,13 @@ public class JsonListTest implements JsonElementTest {
 					        },
 					    },
 					}
-				}""", mock.toJsonString(JsonPrintMode.PRETTY));
+				}""", mock.toJsonString(PRETTY));
 	}
 
 	@Override
 	@Test
 	public void toSpreadStringTest() {
-		assertEquals("[]", new JsonList().toJsonString(JsonPrintMode.SPREAD));
+		assertEquals("[]", new JsonList().toJsonString(SPREAD));
 		assertEquals("""
 				{
 					[],
@@ -119,7 +127,7 @@ public class JsonListTest implements JsonElementTest {
 						"field1": "Some text",
 						"field2": "Some other text"
 					}
-				}""", mock.toJsonString(JsonPrintMode.SPREAD));
+				}""", mock.toJsonString(SPREAD));
 	}
 
 }
