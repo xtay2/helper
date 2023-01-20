@@ -7,17 +7,23 @@ import static java.lang.Math.min;
 @SuppressWarnings("unused")
 public class StringHelper {
 
-	/** Converts a {@link CharSequence} to a {@link Character[]} */
+	/**
+	 * Converts a {@link CharSequence} to a {@link Character[]}
+	 */
 	public static Character[] charArray(CharSequence str) {
 		return str.chars().mapToObj(c -> (char) c).toArray(Character[]::new);
 	}
 
-	/** Returns the amount of occurences of a {@link Character} in a {@link CharSequence}. */
+	/**
+	 * Returns the amount of occurences of a {@link Character} in a {@link CharSequence}.
+	 */
 	public static int occ(char part, CharSequence whole) {
 		return occ(String.valueOf(part), whole);
 	}
 
-	/** Returns the amount of occurences of a {@link CharSequence} in another one. */
+	/**
+	 * Returns the amount of occurences of a {@link CharSequence} in another one.
+	 */
 	public static int occ(CharSequence part, CharSequence whole) {
 		int cnt = 0;
 		for (int i = 0; i <= whole.length() - part.length(); i++) {
@@ -27,7 +33,16 @@ public class StringHelper {
 		return cnt;
 	}
 
-	/** Removes all passed chars from the passed sequence. */
+	/**
+	 * Returns the amount of occurences of chars at the start of a {@link CharSequence}.
+	 */
+	public static int occAtStart(char c, CharSequence whole) {
+		return (int) whole.chars().takeWhile(ch -> ch == c).count();
+	}
+
+	/**
+	 * Removes all passed chars from the passed sequence.
+	 */
 	public static String remove(CharSequence s, char... chars) {
 		for (char c : chars)
 			s = s.toString().replace(String.valueOf(c), "");
