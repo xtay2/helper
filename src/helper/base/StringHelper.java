@@ -37,9 +37,12 @@ public class StringHelper {
 	 * Returns the amount of occurences of chars at the start of a {@link CharSequence}.
 	 */
 	public static int occAtStart(char c, CharSequence whole) {
-		return (int) whole.chars().takeWhile(ch -> ch == c).count();
+		int idx = 0;
+		while (idx < whole.length() && whole.charAt(idx) == c)
+			idx++;
+		return idx;
 	}
-
+	
 	/**
 	 * Removes all passed chars from the passed sequence.
 	 */
