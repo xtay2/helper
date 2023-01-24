@@ -37,10 +37,21 @@ public class StringHelper {
 	 * Returns the amount of occurences of chars at the start of a {@link CharSequence}.
 	 */
 	public static int occAtStart(char c, CharSequence whole) {
-		int idx = 0;
-		while (idx < whole.length() && whole.charAt(idx) == c)
-			idx++;
-		return idx;
+		return occAfter(c, 0, whole);
+	}
+
+	/**
+	 * Returns the amount of occurences of chars after a certain index in a {@link CharSequence}.
+	 */
+	public static int occAfter(char c, int idx, CharSequence whole) {
+		int occ = 0;
+		for (int i = idx; i < whole.length(); i++) {
+			if (whole.charAt(i) == c)
+				occ++;
+			else
+				break;
+		}
+		return occ;
 	}
 	
 	/**

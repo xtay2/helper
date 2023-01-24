@@ -12,6 +12,14 @@ import java.util.stream.Stream;
 @SuppressWarnings("unused")
 public class ArrayHelper {
 
+	/** Checks if the passed array contains the passed object. */
+	public static <T> boolean contains(T[] arr, T obj) {
+		for(T t : arr)
+			if(t.equals(obj))
+				return true;
+		return false;
+	}
+
 	public static <T> T[] reverse(T[] array) {
 		return Stream.of(array).collect(Collectors.collectingAndThen(Collectors.toList(), list -> {
 			Collections.reverse(list);
@@ -87,15 +95,6 @@ public class ArrayHelper {
 
 		arr[idx + amount] = tmp;
 
-	}
-
-	public static void main(String[] args) {
-		Integer[] arr = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
-		System.out.println(Arrays.toString(arr));
-		move(arr, 0, 3);
-		System.out.println(Arrays.toString(arr));
-		move(arr, 9, -3);
-		System.out.println(Arrays.toString(arr));
 	}
 
 	public static <T> boolean outOfBounds(T[] arr, boolean throwExc, int... idxs) {
