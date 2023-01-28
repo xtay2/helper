@@ -2,6 +2,7 @@ package helper.util;
 
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.Set;
 import java.util.function.BiFunction;
 import java.util.function.Function;
@@ -14,8 +15,8 @@ public class ArrayHelper {
 
 	/** Checks if the passed array contains the passed object. */
 	public static <T> boolean contains(T[] arr, T obj) {
-		for(T t : arr)
-			if(t.equals(obj))
+		for (T t : arr)
+			if (t.equals(obj))
 				return true;
 		return false;
 	}
@@ -113,5 +114,24 @@ public class ArrayHelper {
 		if (arr.length == 2)
 			return combiner.apply(arr[0], arr[1]);
 		return combiner.apply(arr[0], fold(ArrayHelper.subarray(arr, 1, arr.length), combiner));
+	}
+
+	/**
+	 * Returns an {@link Iterator} for the passed array.
+	 */
+	public static <T> Iterator<T> iterator(T[] children) {
+		return new Iterator<>() {
+			int i = 0;
+
+			@Override
+			public boolean hasNext() {
+				return i < children.length;
+			}
+
+			@Override
+			public T next() {
+				return children[i++];
+			}
+		};
 	}
 }

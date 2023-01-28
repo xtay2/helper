@@ -1,6 +1,7 @@
 module helper {
 	requires jdk.unsupported;
-	exports helper.base;
+	opens helper.base;
 	exports helper.io;
+	exports helper.base;
 	exports helper.util;
 }

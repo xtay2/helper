@@ -17,7 +17,9 @@ public class CollectionHelper {
 	 * Maps all elements in an Iterable to a String and joins them together.
 	 */
 	public static <T> String mapJoin(Iterable<T> c, Function<T, String> toString, String delimiter) {
-		return IterableHelper.stream(c).map(toString).collect(Collectors.joining(delimiter));
+		return IterableHelper.stream(c)
+				.map(o -> o == null ? "null" : toString.apply(o))
+				.collect(Collectors.joining(delimiter));
 	}
 
 }

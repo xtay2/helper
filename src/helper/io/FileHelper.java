@@ -24,19 +24,17 @@ public class FileHelper {
 	}
 
 	/**
-	 * Deletes a {@link File} or a {@link Directory} and all its contents.
+	 * Deletes a {@link File} or a directory and all its contents.
 	 *
 	 * @return true if successful.
 	 */
-	@SuppressWarnings("ResultOfMethodCallIgnored")
 	public static boolean delete(Path path) {
 		if (Files.notExists(path))
 			return false;
 		try (var dirStream = Files.walk(path)) {
-			dirStream.map(Path::toFile)
+			return dirStream.map(Path::toFile)
 					.sorted(Comparator.reverseOrder())
-					.forEach(File::delete);
-			return true;
+					.reduce(true, (b, f) -> b && f.delete(), (b1, b2) -> b1 && b2 );
 		} catch (IOException ioe) {
 			ioe.printStackTrace();
 			return false;
