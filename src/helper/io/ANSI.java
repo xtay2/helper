@@ -6,14 +6,15 @@ package helper.io;
 @SuppressWarnings("unused")
 public enum ANSI {
 
-	RESET("\u001B[0m"),
-	BLACK("\u001B[30m"),
-	RED("\u001B[31m"),
-	GREEN("\u001B[32m"),
-	YELLOW("\u001B[33m"),
-	BLUE("\u001B[34m"),
-	PURPLE("\u001B[35m"),
-	CYAN("\u001B[36m");
+	ESCAPE("\u001B"),
+	RESET(ESCAPE + "[0m"),
+	BLACK(ESCAPE + "[30m"),
+	RED(ESCAPE + "[31m"),
+	GREEN(ESCAPE + "[32m"),
+	YELLOW(ESCAPE + "[33m"),
+	BLUE(ESCAPE + "[34m"),
+	PURPLE(ESCAPE + "[35m"),
+	CYAN(ESCAPE + "[36m");
 
 	private final String code;
 
