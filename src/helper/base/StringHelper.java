@@ -41,6 +41,13 @@ public class StringHelper {
 	}
 
 	/**
+	 * Returns the amount of occurences of chars at the end of a {@link CharSequence}.
+	 */
+	public static int occAtEnd(char c, CharSequence whole) {
+		return occBefore(c, whole.length() - 1, whole);
+	}
+
+	/**
 	 * Returns the amount of occurences of chars after a certain index in a {@link CharSequence}.
 	 */
 	public static int occAfter(char c, int idx, CharSequence whole) {
@@ -53,7 +60,21 @@ public class StringHelper {
 		}
 		return occ;
 	}
-	
+
+	/**
+	 * Returns the amount of occurences of chars before a certain index in a {@link CharSequence}.
+	 */
+	public static int occBefore(char c, int idx, CharSequence whole) {
+		int occ = 0;
+		for (int i = idx; i >= 0; i--) {
+			if (whole.charAt(i) == c)
+				occ++;
+			else
+				break;
+		}
+		return occ;
+	}
+
 	/**
 	 * Removes all passed chars from the passed sequence.
 	 */
@@ -61,6 +82,20 @@ public class StringHelper {
 		for (char c : chars)
 			s = s.toString().replace(String.valueOf(c), "");
 		return (String) s;
+	}
+
+	/**
+	 * Removes the passed char from the start of the passed sequence.
+	 */
+	public static String removeLeading(String s, char prefix) {
+		return s.substring(occAtStart(prefix, s));
+	}
+
+	/**
+	 * Removes the passed char from the end of the passed sequence.
+	 */
+	public static String removeTrailing(String s, char suffix) {
+		return s.substring(0, s.length() - occAtEnd(suffix, s));
 	}
 
 	/**
@@ -85,4 +120,17 @@ public class StringHelper {
 		return snippet.toString().startsWith(p.substring(0, min(snippet.length(), p.length())));
 	}
 
+	/**
+	 * Returns the longest common prefix of two {@link CharSequence}s.
+	 */
+	public static CharSequence commonPrefix(CharSequence a, CharSequence b) {
+		int i = 0;
+		while (i < a.length() && i < b.length() && a.charAt(i) == b.charAt(i))
+			i++;
+		return a.subSequence(0, i);
+	}
+
+	public static int leadingSpaces(CharSequence chars) {
+		return (int) chars.chars().takeWhile(Character::isWhitespace).count();
+	}
 }
