@@ -1,55 +1,56 @@
 package helper.json.type.container;
 
-import java.util.*;
-import java.util.function.*;
+import helper.json.JsonHelper;
+import helper.json.parsing.JsonPrinter.JsonPrintMode;
+import helper.json.type.JsonElement;
 
-import helper.json.*;
-import helper.json.parsing.JsonPrinter.*;
-import helper.json.type.*;
+import java.util.*;
+import java.util.function.Function;
+import java.util.function.Predicate;
 
 public final class JsonList implements JsonContainer<JsonElement>, RandomAccess {
-	
+
 	private final List<JsonElement> content;
-	
+
 	/** Creates an empty {@link JsonList} */
 	public JsonList() {
 		content = new ArrayList<>();
 	}
-	
+
 	/** @see ArrayList#ArrayList(int) */
 	public JsonList(int initialCapacity) {
 		content = new ArrayList<>(initialCapacity);
 	}
-	
+
 	/** Creates a {@link JsonList} based on the elements in the passed array. */
 	@SafeVarargs
 	public JsonList(Object... vals) {
 		this(vals.length);
 		add(vals);
 	}
-	
+
 	/** Creates a {@link JsonList} based on the elements in the passed {@link Iterable}. */
 	public JsonList(Iterable<?> iter) {
 		this();
 		add(iter);
 	}
-	
+
 	// Add / Insert
-	
+
 	/** @see Collection#add(Object) */
 	public JsonList add(Object val) {
 		content.add(val instanceof JsonElement jElem ? jElem : JsonHelper.toJson(val));
 		return this;
 	}
 
-	@SafeVarargs
 	/** @see Collection#addAll(Collection) */
+	@SafeVarargs
 	public final JsonList add(Object... vals) {
 		for (var e : vals)
 			add(e);
 		return this;
 	}
-	
+
 	/** @see Collection#addAll(Collection) */
 	public JsonList add(Iterable<?> iter) {
 		if (iter instanceof JsonContainer)
@@ -64,13 +65,13 @@ public final class JsonList implements JsonContainer<JsonElement>, RandomAccess 
 		content.add(jObj.apply(new JsonObject()));
 		return this;
 	}
-	
+
 	/** @see List#add(int, Object) */
 	public JsonList insert(int idx, Object val) {
 		content.add(idx, JsonHelper.toJson(val));
 		return this;
 	}
-	
+
 	@SafeVarargs
 	/** @see List#add(int, Object) */
 	public final JsonList insert(int idx, Object... vals) {
@@ -78,7 +79,7 @@ public final class JsonList implements JsonContainer<JsonElement>, RandomAccess 
 			insert(idx++, e);
 		return this;
 	}
-	
+
 	/** @see List#addAll(int, Collection) */
 	public JsonList insert(int idx, Iterable<?> iter) {
 		for (var e : iter)
@@ -87,17 +88,17 @@ public final class JsonList implements JsonContainer<JsonElement>, RandomAccess 
 	}
 
 	// Remove
-	
+
 	/** @see Collection#remove(Object) */
 	public JsonElement remove(int idx) {
 		return content.remove(idx);
 	}
-	
+
 	/** @see Collection#removeIf(Predicate) */
 	public boolean removeIf(Predicate<JsonElement> predicate) {
 		return content.removeIf(predicate);
 	}
-	
+
 	// Lookup
 
 	/** @see List#get(int) */
@@ -125,10 +126,10 @@ public final class JsonList implements JsonContainer<JsonElement>, RandomAccess 
 	public int size() {
 		return content.size();
 	}
-	
+
 	/** @see Collection#isEmpty() */
 	@Override
-	public boolean isEmpty() { return content.isEmpty(); }
+	public boolean isEmpty() {return content.isEmpty();}
 
 	// Visit all
 
@@ -136,22 +137,22 @@ public final class JsonList implements JsonContainer<JsonElement>, RandomAccess 
 	public JsonElement[] toArray() {
 		return content.toArray(new JsonElement[size()]);
 	}
-	
+
 	@Override
 	public ListIterator<JsonElement> iterator() {
 		return content.listIterator();
 	}
-	
+
 	/** Converts this into a {@link List}-Implementation. */
 	public List<JsonElement> toList() {
 		return new ArrayList<>(content);
 	}
-	
+
 	/** @see List#subList(int, int) */
 	public List<JsonElement> subList(int fromIndex, int toIndex) {
 		return content.subList(fromIndex, toIndex);
 	}
-	
+
 	// toString
 
 	/** @see JsonObject#toJsonString() */

@@ -23,7 +23,7 @@ public class JsonPrinter {
 		/** Only spreads out the fields of an object if more than two exist . */
 		PRETTY,
 		/** Every field in a {@link JsonObject} and every {@link JsonList}-Entry has its own line. */
-		SPREAD;
+		SPREAD
 	}
 
 	public static void main(String[] args) {
@@ -48,11 +48,11 @@ public class JsonPrinter {
 	}
 
 	public static String toJsonString(JsonPrintMode printMode, JsonContainer<?> jsonContainer) {
-		return containerSwitch(jsonContainer, printMode, switch (printMode) {
+		return String.join("\n", containerSwitch(jsonContainer, printMode, switch (printMode) {
 			case SINGLE_LINE -> JsonPrinter::containerSingle;
 			case PRETTY -> JsonPrinter::containerPretty;
 			case SPREAD -> JsonPrinter::containerSpread;
-		}).stream().collect(Collectors.joining("\n"));
+		}));
 	}
 
 	@SuppressWarnings("unchecked")

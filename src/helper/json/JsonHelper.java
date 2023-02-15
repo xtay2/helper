@@ -28,11 +28,7 @@ public class JsonHelper {
 	 * - {@link Boolean}, {@link CharSequence}, {@link Number} -> {@link JsonPrimitive}
 	 * -
 	 * </pre>
-	 *
-	 * @param obj
-	 * @return
 	 */
-	@SuppressWarnings("preview")
 	public static JsonElement toJson(Object obj) {
 		if (obj == null)
 			return JsonNull.INSTANCE;

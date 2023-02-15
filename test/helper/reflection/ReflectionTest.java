@@ -1,28 +1,29 @@
 package helper.reflection;
 
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Test;
 
-import java.util.*;
+import java.util.Optional;
 
-import org.junit.jupiter.api.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 public class ReflectionTest {
 
 	private static class TestClass {
-		
+
 		private TestClass() {
 			throw new AssertionError();
 		}
-		
+
 	}
-	
+
 	@Test
 	public void testInstance() {
 		var val = ReflectionHelper.instance(TestClass.class);
 		assertNotEquals(Optional.empty(), val);
-		assertNotEquals(null, val.get());
+		assertNotEquals(null, val.orElseThrow());
 	}
-	
+
 	@Test
 	public void testMethodName() {
 		assertEquals("testMethodName", ReflectionHelper.methodName());

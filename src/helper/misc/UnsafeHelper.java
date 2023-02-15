@@ -1,23 +1,26 @@
 package helper.misc;
 
-import java.lang.reflect.*;
-import java.util.*;
+import sun.misc.Unsafe;
+
+import java.lang.reflect.Field;
+import java.util.Optional;
 
 public class UnsafeHelper {
-	
-	private static Optional<sun.misc.Unsafe> UNSAVE_SINGLETON;
-	
+
+	@SuppressWarnings("OptionalUsedAsFieldOrParameterType")
+	private static Optional<Unsafe> UNSAVE_SINGLETON;
+
 	static {
 		try {
-			Field f = sun.misc.Unsafe.class.getDeclaredField("theUnsafe");
+			Field f = Unsafe.class.getDeclaredField("theUnsafe");
 			f.setAccessible(true);
-			UNSAVE_SINGLETON = Optional.of((sun.misc.Unsafe) f.get(null));
-		} catch (@SuppressWarnings("unused") Exception e) {
+			UNSAVE_SINGLETON = Optional.of((Unsafe) f.get(null));
+		} catch (Exception e) {
 			UNSAVE_SINGLETON = Optional.empty();
 		}
 	}
-	
-	public static Optional<sun.misc.Unsafe> instance() {
+
+	public static Optional<Unsafe> instance() {
 		return UNSAVE_SINGLETON;
 	}
 }

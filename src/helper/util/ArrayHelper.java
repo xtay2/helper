@@ -1,9 +1,6 @@
 package helper.util;
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.Set;
+import java.util.*;
 import java.util.function.BiFunction;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -27,22 +24,30 @@ public class ArrayHelper {
 			return list.toArray(array);
 		}));
 	}
-
+	
 	/**
 	 * Creates a new array and invokes the passed function on every element.
 	 * (Similar to {@link Stream#map(Function)})
 	 */
-	public static <T, R> R[] map(T[] arr, Function<T, R> func) {
-		@SuppressWarnings("unchecked")
-		R[] res = (R[]) new Object[arr.length];
+	public static <T, R> R[] map(T[] arr, Function<T, R> func, Function<Integer, R[]> supplier) {
+		R[] res = supplier.apply(arr.length);
 		for (int i = 0; i < res.length; i++)
 			res[i] = func.apply(arr[i]);
 		return res;
 	}
 
+	/** Converts an array to a {@link List}. */
+	public static <S> List<S> toList(S[] children) {
+		List<S> res = new ArrayList<>(children.length);
+		Collections.addAll(res, children);
+		return res;
+	}
+
 	/** Converts an array to a {@link Set}. */
 	public static <S> Set<S> toSet(S[] children) {
-		return Arrays.stream(children).collect(Collectors.toSet());
+		Set<S> res = new HashSet<>(children.length);
+		Collections.addAll(res, children);
+		return res;
 	}
 
 	/** Returns a shallow copy of the passed array. */

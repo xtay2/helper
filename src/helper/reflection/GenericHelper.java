@@ -1,13 +1,12 @@
 package helper.reflection;
 
-import java.lang.reflect.*;
+import helper.util.ArrayHelper;
 
-import helper.util.*;
+import java.lang.reflect.Field;
+import java.lang.reflect.ParameterizedType;
 
 public class GenericHelper {
 
-	public static <T> Class<T> getGenericType() { return null; }
-	
 	/**
 	 * Returns all generic types of any field. If the passed field has no generic type information, an
 	 * empty array gets returned.
@@ -21,7 +20,7 @@ public class GenericHelper {
 				} catch (ClassNotFoundException e) {
 					throw new AssertionError(e);
 				}
-			});
+			}, Class[]::new);
 		} catch (@SuppressWarnings("unused") ClassCastException e) {
 			return new Class<?>[0];
 		}
