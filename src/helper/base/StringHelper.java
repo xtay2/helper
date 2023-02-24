@@ -8,7 +8,7 @@ import static java.lang.Math.min;
 public class StringHelper {
 
 	/**
-	 * Converts a {@link CharSequence} to a {@link Character[]}
+	 * Converts a {@link CharSequence} to a {@link char[]}
 	 */
 	public static Character[] charArray(CharSequence str) {
 		return str.chars().mapToObj(c -> (char) c).toArray(Character[]::new);
@@ -25,6 +25,8 @@ public class StringHelper {
 	 * Returns the amount of occurences of a {@link CharSequence} in another one.
 	 */
 	public static int occ(CharSequence part, CharSequence whole) {
+		if (part.length() == 0)
+			return 0;
 		int cnt = 0;
 		for (int i = 0; i <= whole.length() - part.length(); i++) {
 			if (Objects.equals(whole.subSequence(i, i + part.length()), part))
@@ -48,7 +50,7 @@ public class StringHelper {
 	}
 
 	/**
-	 * Returns the amount of occurences of chars after a certain index in a {@link CharSequence}.
+	 * Returns the amount of occurences of chars after (inklusive) a certain index in a {@link CharSequence}.
 	 */
 	public static int occAfter(char c, int idx, CharSequence whole) {
 		int occ = 0;
@@ -62,7 +64,7 @@ public class StringHelper {
 	}
 
 	/**
-	 * Returns the amount of occurences of chars before a certain index in a {@link CharSequence}.
+	 * Returns the amount of occurences of chars before (inklusive) a certain index in a {@link CharSequence}.
 	 */
 	public static int occBefore(char c, int idx, CharSequence whole) {
 		int occ = 0;
@@ -130,7 +132,29 @@ public class StringHelper {
 		return a.subSequence(0, i);
 	}
 
+	/** Returns the amount of whitespaces after (exclusive) an index. */
+	public static int spacesAfter(CharSequence chars, int idx) {
+		for (int i = idx; i < chars.length(); i++) {
+			if (!Character.isWhitespace(chars.charAt(i)))
+				return i - idx;
+		}
+		return chars.length() - idx;
+	}
+
+	/** Returns the amount of whitespaces before (exclusive) an index. */
+	public static int spacesBefore(CharSequence chars, int idx) {
+		for (int i = idx - 1; i >= 0; i--) {
+			if (!Character.isWhitespace(chars.charAt(i)))
+				return idx - i - 1;
+		}
+		return idx;
+	}
+
 	public static int leadingSpaces(CharSequence chars) {
-		return (int) chars.chars().takeWhile(Character::isWhitespace).count();
+		return spacesAfter(chars, 0);
+	}
+
+	public static int trailingSpaces(CharSequence chars) {
+		return spacesBefore(chars, chars.length());
 	}
 }
