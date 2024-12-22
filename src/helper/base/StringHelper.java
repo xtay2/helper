@@ -1,5 +1,6 @@
 package helper.base;
 
+import java.util.List;
 import java.util.Objects;
 
 import static java.lang.Math.min;
@@ -156,5 +157,9 @@ public class StringHelper {
 
 	public static int trailingSpaces(CharSequence chars) {
 		return spacesBefore(chars, chars.length());
+	}
+
+	public static List<String> findAll(String numbersRegex, String line) {
+		return null; // TODO: Implement me!
 	}
 }
